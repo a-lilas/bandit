@@ -3,7 +3,7 @@ import pprint
 import numpy as np
 import random as rd
 import matplotlib.pyplot as plt
-from sarsa_class import *
+from sarsa import *
 from q_learning import QAgent
 
 
