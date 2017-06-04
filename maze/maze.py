@@ -57,10 +57,13 @@ class QAgent:
         self.end = end
         # 報酬和
         self.reward = 0
+        # 行動回数
+        self.times = 0
 
     def resetParameter(self):
         self.now = self.start
         self.reward = 0
+        self.times = 0
 
     def policy(self):
         # ε-greedy方策を採用

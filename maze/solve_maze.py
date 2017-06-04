@@ -57,16 +57,20 @@ def __main():
                 if env.maze[tuple(np.array(agent.now)+agent.actions[next_action])] == 1:
                     break
 
+            # 行動回数
+            agent.times += 1
+
             # 現在位置
-            print(agent.now, i)
-            if i > 20:
-                env.drawMaze(agent.now)
+            # print(agent.now, i)
+            # if i > 20:
+            #     # 思いので定期的にAlt+F4などで閉じること
+            #     env.drawMaze(agent.now)
 
             # 行動A_t+1を実行に移す(ループ先頭に戻る)
             pred_action = next_action
 
+        print(i, agent.times)
         agent.resetParameter()
-        print("==========GOAL==========")
 
 if __name__ == '__main__':
     __main()
