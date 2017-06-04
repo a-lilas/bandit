@@ -5,38 +5,37 @@ import matplotlib.pyplot as plt
 
 
 class Maze:
-    def __init__(self):
-        # 1: 壁, 0:通路
-        self.maze = np.array([
-                              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                              [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1],
-                              [1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1],
-                              [1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1],
-                              [1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1],
-                              [1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1],
-                              [1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1],
-                              [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-                              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-                             ])
-
-        self.start = (1, 1)
-        self.goal = (7, 10)
+    def __init__(self, maze, start, goal, reward):
+        # 0: 壁, 1:通路
+        self.maze = maze
+        self.start = start
+        self.goal = goal
         self.size = np.shape(self.maze)
+        self.reward = reward
 
     def actionResult(self, now_state, action):
         # return (now_state + action, self.reward[now_state][action])
         reward = 0
         if tuple(np.array(now_state) + action) == self.goal:
-            reward = 3
+            reward = self.reward
         return (np.array(now_state) + action, reward)
 
-    def drawMaze(self):
-        plt.imshow(self.maze,
-                   cmap=matplotlib.cm.binary,
+    def drawMaze(self, agent_now):
+        # plt.imshow(self.maze,
+        #            cmap=matplotlib.cm.hot,
+        #            interpolation="nearest"
+        #            )
+        # エージェントの位置を色付け 深いコピーをすること
+        agent_map = np.copy(self.maze)
+        # float型に変換
+        agent_map = agent_map.astype(np.float)
+        agent_map[agent_now[0], agent_now[1]] = 0.3
+        plt.imshow(agent_map,
+                   cmap=matplotlib.cm.hot,
                    interpolation="nearest"
                    )
         plt.axis("off")
-        plt.show()
+        plt.pause(0.0001)
 
 
 class QAgent:
