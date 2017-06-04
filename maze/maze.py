@@ -25,7 +25,10 @@ class Maze:
 
     def actionResult(self, now_state, action):
         # return (now_state + action, self.reward[now_state][action])
-        return (np.array(now_state) + action, 1)
+        reward = 0
+        if tuple(np.array(now_state) + action) == self.goal:
+            reward = 3
+        return (np.array(now_state) + action, reward)
 
     def drawMaze(self):
         plt.imshow(self.maze,
@@ -44,6 +47,7 @@ class QAgent:
                         [1, 0],
                         [0, -1],
                         [0, 1]]
+
         # init: Qの初期値
         self.Q = np.zeros((len(self.actions), state_size[0], state_size[1])) + init
         # 初期状態
