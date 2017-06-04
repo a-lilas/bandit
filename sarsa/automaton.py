@@ -60,7 +60,7 @@ def __main():
         episode.append(i)
 
         while True:
-            # 一番最初の行動A_tの決定
+            # 行動A_tの決定
             pred_action = agent.policy()
             # 行動後の状態S_t+1と報酬R_t+1が返る
             next_state, reward = env.actionResult(agent.now, pred_action)
@@ -74,6 +74,7 @@ def __main():
             else:
                 # エージェントにここまでの結果を渡す/Qテーブルの更新
                 agent.update(next_state, pred_action, reward, alpha=0.01, gamma=0.8)
+
             # 終了判定(True:ゴール)
             if agent.checkGoal():
                 break
@@ -87,6 +88,7 @@ def __main():
             pred_action = next_action
 
         reward_trace.append(agent.reward)
+
         # ゴールしたら、エージェントのリセットを行う
         agent.resetParameter()
 

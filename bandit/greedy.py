@@ -5,7 +5,6 @@ import pandas as pd
 from collections import Counter
 from progressbar import ProgressBar
 import seaborn as sns
-import math
 
 
 def pr(p):
@@ -91,7 +90,7 @@ class Agent(object):
         self.pullnum[i] += 1
 
         # 報酬の信頼区間の更新
-        self.confidence[i] = math.sqrt((2*math.log(np.sum(self.pullnum))/self.pullnum[i]))
+        self.confidence[i] = np.sqrt((2*np.log(np.sum(self.pullnum))/self.pullnum[i]))
 
     def updateExpected(self, i, value, result):
         num = Counter(self.history)
