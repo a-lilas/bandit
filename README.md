@@ -2,7 +2,7 @@
 ## Multi-armed Bandit
 greedy / ε-greedy / UCB1
 
-##Automaton
+## Automaton
 Sarsa / Q-Learning
 
 ## maze
